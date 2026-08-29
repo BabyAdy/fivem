@@ -1,0 +1,126 @@
+:root {
+    --accent: #b98bff;
+    --accent-strong: #7c4dff;
+    --panel: rgba(12, 9, 18, 0.78);
+    --panel-b: rgba(160, 120, 255, 0.28);
+    --txt: #ece8f6;
+    --dim: #8a8698;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: transparent;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; -webkit-font-smoothing: antialiased; user-select: none; }
+
+.hidden { display: none !important; }
+
+#chat {
+    position: fixed;
+    left: 1.4vw;
+    top: 1.2vh;
+    width: 34vw;
+    max-width: 640px;
+    display: flex; flex-direction: column;
+    gap: 6px;
+    pointer-events: none;
+}
+#composer, #suggestions { pointer-events: auto; }
+
+/* ── message log ─────────────────────────────────────── */
+.log {
+    /* only a few lines are visible at rest; older ones stay stored above
+       and are reachable by scrolling once the input is open */
+    height: 22vh;
+    display: flex; flex-direction: column; justify-content: flex-start;
+    gap: 1px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 2px 2px;
+    scrollbar-width: none;               /* hidden while closed */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 92%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0, #000 7%, #000 92%, transparent 100%);
+    transition: opacity .4s ease;
+}
+.log::-webkit-scrollbar { width: 0; height: 0; }
+#chat.idle .log { opacity: 0; }
+#chat.active .log,
+#chat.recent .log { opacity: 1; }
+
+/* when the input is open: drop the fade mask and show the scrollbar so the
+   full backlog (last 150 lines) can be scrolled through */
+#chat.active .log {
+    -webkit-mask-image: none; mask-image: none;
+    scrollbar-width: thin;
+}
+#chat.active .log::-webkit-scrollbar { width: 5px; height: 5px; }
+#chat.active .log::-webkit-scrollbar-thumb { background: rgba(160,120,255,.35); border-radius: 3px; }
+
+.line {
+    font-size: 1.2vh;
+    line-height: 1.45;
+    color: var(--txt);
+    padding: 1px 4px;
+    text-shadow: 0 1px 2px rgba(0,0,0,.95), 0 0 6px rgba(0,0,0,.5);
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    animation: lineIn .18s ease both;
+}
+@keyframes lineIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+.line .sep { color: var(--dim); }
+
+/* ── composer ────────────────────────────────────────── */
+/* fully transparent — no panel, no border, no blur; text carries its own
+   shadow so it stays readable straight on the game */
+#composer {
+    display: flex; align-items: center;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 2px 2px;
+}
+#prefix {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.2vh;
+    margin-right: 6px;
+    white-space: nowrap;
+    text-shadow: 0 1px 3px rgba(0,0,0,.95), 0 0 8px rgba(0,0,0,.7);
+}
+#prefix:empty { display: none; }
+#input {
+    flex: 1;
+    background: transparent;
+    border: none; outline: none;
+    color: var(--txt);
+    font: inherit;
+    font-size: 1.25vh;
+    padding: 3px 0;
+    text-shadow: 0 1px 3px rgba(0,0,0,.95), 0 0 8px rgba(0,0,0,.7);
+}
+#input::placeholder { color: rgba(214,208,230,.55); text-shadow: 0 1px 3px rgba(0,0,0,.9); }
+
+/* ── suggestions ─────────────────────────────────────── */
+.suggestions {
+    background: var(--panel);
+    border: 1px solid var(--panel-b);
+    border-radius: 9px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    max-height: 34vh;
+    overflow-y: auto;
+}
+.suggestions::-webkit-scrollbar { width: 5px; }
+.suggestions::-webkit-scrollbar-thumb { background: rgba(160,120,255,.35); border-radius: 3px; }
+.sug {
+    padding: 7px 12px;
+    font-size: 1.4vh;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    cursor: default;
+}
+.sug:last-child { border-bottom: none; }
+.sug.active { background: rgba(124,77,255,.18); }
+.sug .s-name { color: var(--accent); font-weight: 700; }
+.sug .s-help { color: var(--dim); margin-left: 8px; }
+.sug .s-args { display: block; margin-top: 2px; color: #6f6a82; font-size: 1.25vh; }
+.sug .s-args b { color: var(--accent); font-weight: 600; }
+
+@media screen and (min-aspect-ratio: 21/9) { #chat { left: 6vw; } }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purple Havoc — Chat</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="chat" class="idle">
+    <div id="log" class="log"></div>
+
+    <div id="composer" class="hidden">
+        <span id="prefix" class="prefix"></span>
+        <input id="input" type="text" maxlength="256" autocomplete="off" spellcheck="false"
+               placeholder="Scrie un mesaj…  (Enter trimite · Esc închide)">
+    </div>
+
+    <div id="suggestions" class="suggestions hidden"></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purple Havoc — HUD</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="hud" class="hidden">
+
+    <!-- ═══ TOP-RIGHT ═══ -->
+    <section id="topright">
+        <header class="tr-head">
+            <div class="tr-cols">
+                <div class="tr-col">
+                    <span class="tr-k">Player</span>
+                    <b class="tr-v"><span id="pname">—</span><span class="tr-id" id="pid"></span></b>
+                </div>
+                <div class="tr-col">
+                    <span class="tr-k">Online</span>
+                    <b class="tr-v"><i class="dot"></i><span id="pcount">1</span></b>
+                </div>
+            </div>
+            <div class="tr-brand">
+                <span class="brand-name" id="srvname">PURPLE HAVOC</span>
+                <span class="brand-clock" id="clock">00:00</span>
+            </div>
+            <img id="logo" src="logo.png" alt="">
+        </header>
+
+        <div class="tr-money">
+            <div class="m-row" data-k="cash">
+                <span class="m-lbl">Cash</span>
+                <span class="m-ic cash">$</span>
+                <b class="m-val" id="v-cash">$0</b>
+                <div class="floats" id="f-cash"></div>
+            </div>
+            <div class="m-row" data-k="bank">
+                <span class="m-lbl">Bank</span>
+                <span class="m-ic bank">
+                    <svg viewBox="0 0 24 24" width="13" height="13"><path d="M3 10l9-6 9 6M5 10v9h14v-9M9 19v-6M15 19v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
+                </span>
+                <b class="m-val" id="v-bank">$0</b>
+                <div class="floats" id="f-bank"></div>
+            </div>
+            <div class="m-row pp" data-k="pp">
+                <span class="m-lbl">Premium Points</span>
+                <span class="m-ic pp">
+                    <svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 2l2.8 6.6L22 9.3l-5 4.7 1.3 6.9L12 17.8 5.7 20.9 7 14 2 9.3l7.2-.7z" fill="currentColor"/></svg>
+                </span>
+                <b class="m-val" id="v-pp">0</b>
+                <div class="floats" id="f-pp"></div>
+            </div>
+        </div>
+
+        <div id="pills"></div>
+    </section>
+
+    <!-- ═══ BOTTOM-LEFT (next to minimap) ═══ -->
+    <section id="botleft">
+        <div class="bl-head">
+            <span class="bl-k">Paycheck</span>
+            <b class="bl-time" id="paycheck">--:--</b>
+            <span class="mic" id="mic">
+                <svg viewBox="0 0 24 24" width="13" height="13"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3zM6 11a6 6 0 0 0 12 0M12 17v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+        </div>
+
+        <div class="bar" id="b-health">
+            <div class="bar-top"><span>Health</span><b id="hpPct">100%</b></div>
+            <div class="bar-track"><i class="ic">❤</i><span class="fill"></span></div>
+        </div>
+        <div class="bar" id="b-armor">
+            <div class="bar-top"><span>Armor</span><b id="arPct">0%</b></div>
+            <div class="bar-track"><i class="ic">🛡</i><span class="fill"></span></div>
+        </div>
+
+        <div class="bl-row">
+            <div class="bar sm" id="b-food">
+                <div class="bar-top"><span>Food</span><b id="fdPct">100%</b></div>
+                <div class="bar-track"><i class="ic">🍗</i><span class="fill"></span></div>
+            </div>
+            <div class="bar sm" id="b-water">
+                <div class="bar-top"><span>Water</span><b id="wtPct">100%</b></div>
+                <div class="bar-track"><i class="ic">💧</i><span class="fill"></span></div>
+            </div>
+        </div>
+
+        <div class="bar sm hidden" id="b-oxygen">
+            <div class="bar-top"><span>Oxygen</span><b id="oxPct">100%</b></div>
+            <div class="bar-track"><i class="ic">🫁</i><span class="fill"></span></div>
+        </div>
+    </section>
+
+    <!-- ═══ speedometer (bottom-right, in vehicle) ═══ -->
+    <section id="speedo" class="hidden">
+        <div class="sp-main">
+            <div class="sp-rpm"><i id="rpmBar"></i></div>
+            <div class="sp-num"><span id="spd">0</span><small id="spdUnit">km/h</small></div>
+            <div class="sp-gear" id="gear">N</div>
+        </div>
+        <div class="sp-row">
+            <div class="sp-cell fuel"><span class="c-ic">⛽</span><div class="c-bar"><i id="fuelBar"></i></div><span id="fuelTxt">0</span></div>
+            <div class="sp-cell engine"><span class="c-ic">🔧</span><div class="c-bar"><i id="engBar"></i></div></div>
+        </div>
+        <div class="sp-icons">
+            <span class="sp-i" id="i-belt" title="Centură">🔓</span>
+            <span class="sp-i" id="i-lights" title="Faruri">💡</span>
+            <span class="sp-i" id="i-cruise" title="Cruise">🚗</span>
+            <span class="sp-i" id="i-nitro" title="Nitro">🔥</span>
+            <span class="sp-i" id="i-harness" title="Harness">🎽</span>
+            <span class="sp-i" id="i-lock" title="Închis">🔑</span>
+        </div>
+    </section>
+
+    <!-- ═══ staff shield (bottom-right corner) ═══ -->
+    <section id="shield" class="hidden">
+        <svg viewBox="0 0 48 56" id="shieldSvg" width="44" height="52">
+            <path d="M24 2 L44 10 V28 C44 42 35 50 24 54 C13 50 4 42 4 28 V10 Z"
+                  fill="var(--shield)" fill-opacity="0.22" stroke="var(--shield)" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M17 27 l5 5 l10 -12" fill="none" stroke="var(--shield)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span id="shieldLabel"></span>
+    </section>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>

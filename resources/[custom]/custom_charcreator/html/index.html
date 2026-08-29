@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purple Havoc — Character Creator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="app" class="hidden">
+    <div class="scrim"></div>
+
+    <!-- LEFT CONTROL PANEL -->
+    <aside class="panel">
+        <header class="p-head">
+            <div class="p-title">
+                <span class="kicker" id="kicker">New Account</span>
+                <h1>Create a character</h1>
+                <p class="charname">Character name: <b id="charname">—</b></p>
+            </div>
+            <div class="gender-switch" id="gender">
+                <button data-gender="male" class="active">Male</button>
+                <button data-gender="female">Female</button>
+            </div>
+        </header>
+
+        <nav class="tabs" id="tabs">
+            <button class="tab active" data-tab="face">Face</button>
+            <button class="tab" data-tab="hair">Hair</button>
+        </nav>
+
+        <div class="scroll">
+            <!-- FACE -->
+            <section class="tabpage active" data-page="face">
+                <div class="ctl" data-stepper="heritage.mother">
+                    <div class="ctl-label">Face Mother <span class="val">0</span></div>
+                    <div class="stepper"><button class="dec">‹</button><div class="bar"><i></i></div><button class="inc">›</button></div>
+                </div>
+                <div class="ctl" data-stepper="heritage.father">
+                    <div class="ctl-label">Face Father <span class="val">0</span></div>
+                    <div class="stepper"><button class="dec">‹</button><div class="bar"><i></i></div><button class="inc">›</button></div>
+                </div>
+                <div class="ctl" data-slider="heritage.resemblance">
+                    <div class="ctl-label">Similarity <span class="val">50%</span></div>
+                    <input type="range" min="0" max="100" value="50">
+                    <div class="slider-ends"><span>Father</span><span>Mother</span></div>
+                </div>
+                <div class="ctl" data-slider="heritage.skinTone">
+                    <div class="ctl-label">complexion <span class="val">50%</span></div>
+                    <input type="range" min="0" max="100" value="50">
+                    <div class="slider-ends"><span>Father</span><span>Mother</span></div>
+                </div>
+                <div class="ctl" data-stepper="eyeColor">
+                    <div class="ctl-label">Eye color <span class="val">0</span></div>
+                    <div class="stepper"><button class="dec">‹</button><div class="bar"><i></i></div><button class="inc">›</button></div>
+                </div>
+            </section>
+
+            <!-- HAIR -->
+            <section class="tabpage" data-page="hair">
+                <div class="ctl" data-stepper="hair.style">
+                    <div class="ctl-label">Hair <span class="val">0</span></div>
+                    <div class="stepper"><button class="dec">‹</button><div class="bar"><i></i></div><button class="inc">›</button></div>
+                </div>
+                <div class="ctl" data-stepper="hair.color">
+                    <div class="ctl-label">Hair Color <span class="val">0</span></div>
+                    <div class="stepper"><button class="dec">‹</button><div class="bar"><i></i></div><button class="inc">›</button></div>
+                </div>
+                <div class="ctl" data-stepper="eyebrows.style">
+                    <div class="ctl-label">Eyebrows <span class="val">0</span></div>
+                    <div class="stepper"><button class="dec">‹</button><div class="bar"><i></i></div><button class="inc">›</button></div>
+                </div>
+                <div class="ctl" data-stepper="eyebrows.color">
+                    <div class="ctl-label">Eyebrow color <span class="val">0</span></div>
+                    <div class="stepper"><button class="dec">‹</button><div class="bar"><i></i></div><button class="inc">›</button></div>
+                </div>
+                <div id="beard-block">
+                    <div class="ctl" data-stepper="beard.style">
+                        <div class="ctl-label">Chin <span class="val">0</span></div>
+                        <div class="stepper"><button class="dec">‹</button><div class="bar"><i></i></div><button class="inc">›</button></div>
+                    </div>
+                    <div class="ctl" data-stepper="beard.color">
+                        <div class="ctl-label">Chin color <span class="val">0</span></div>
+                        <div class="stepper"><button class="dec">‹</button><div class="bar"><i></i></div><button class="inc">›</button></div>
+                    </div>
+                </div>
+                <div class="note">You will receive a standard set of clothes (t-shirt, pants, sneakers). You can change them later in the shops in town.</div>
+            </section>
+        </div>
+
+        <footer class="p-foot">
+            <button class="btn btn-ghost" id="btn-quit">Leave</button>
+            <button class="btn btn-primary" id="btn-confirm">
+                <span class="btn-label">Confirm Character</span>
+                <span class="spinner"></span>
+            </button>
+        </footer>
+    </aside>
+
+    <!-- FLOATING STAGE CONTROLS -->
+    <div class="stage">
+        <div class="cam-group" id="cams">
+            <button data-view="face" title="Față">Face</button>
+            <button data-view="body" class="active" title="Corp">Body</button>
+            <button data-view="legs" title="Picioare">Legs</button>
+        </div>
+        <div class="turn-group">
+            <button id="turn-l" title="Rotește stânga">⟲</button>
+            <button id="rand" title="Aspect aleatoriu">Random</button>
+            <button id="turn-r" title="Rotește dreapta">⟳</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
